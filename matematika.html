@@ -1,0 +1,248 @@
+
+<html>
+<head>
+<title>matematika</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type='text/css' href='hitrost_opazovanja_stil.css'>
+</head>
+
+<body bgcolor="#2ECCFA" background="divji_zur.jpg">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<h1>seštevanje </h1>
+
+
+
+<button id="gumb1">začni</button>
+<button id="gumb_navodila">navodila</button> 
+
+<a href='glavna_stran.html'>nazaj na glavno stran<a>
+<br>
+<div id="navodila"> številke padajo ti jih seštej </div>
+
+<br>
+
+
+
+
+
+<table border='1' id='tabela'>
+
+<tr> <td> dfsffds </td>  <td> dfsffds </td> </tr>
+<tr> <td> dfsffds </td>  <td> dfsffds </td> </tr>
+</table>
+<br>
+<button id="sestej">seštej</button>
+<form id="vsota">
+	napiši:<input name="name" type="text" size="20" placeholder="vpiši število sem">
+</form>
+<div ng-app="">
+ 
+<p>Input something in the input box:</p>
+<p>Name : <input type="text" ng-model="stevilo" placeholder="ignoriraj">
+<font id='rezultat' class='jj'>{{stevilo}}</font>
+<font id='tock' class='jj'>0</font>
+<font id='lajfi'>5</font>
+<font id='preveri'></font>
+</div> 
+<script src='skupne_funkc.js'> </script>
+<script>
+
+
+
+
+
+
+
+//<font size="6">This is some text!</font>
+
+function unici(ime){
+	var element = document.getElementById(ime);
+	element.parentNode.removeChild(element);
+}
+
+
+//createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
+
+var vrstice=10;
+var stolpci=4;
+function naklucnih(){
+	var a=0;
+	var sez=new Array();
+	while(a<stolpci){
+		sez.push(Math.floor(Math.random()*100+1));
+		a+=1;
+	}
+}
+var sez_st=nakljucnih();
+function preveri(vsota){
+	var prvi=-1;
+	var drugi=-1;
+	a=0;
+	
+	while(a<stolpci-1){
+		b=a+1;
+		while(b<stolpci){
+			if(sez_st[a]+sez_st[b]==vsota){
+				prvi=a;
+				drugi=b;
+				break;
+			}
+		}
+		a+=1;
+	}
+	return [prvi,drugi];	
+}
+
+var trenutna_vrstica=1;
+//var prvi_sestevanec=Math.floor(Math.random()*100+1);
+//var drugi_sestevanec=Math.floor(Math.random()*100+1);
+
+var tocke=0;
+var lajfi=5;
+function createTable(ime){
+  unici(ime);
+  var table = document.createElement('table');
+  table.id=ime;
+  table.align='center';
+  
+  table.border=1;
+
+
+  var a=1;
+  var b=1;
+  while(a<vrstice){
+	var row = document.createElement('tr');
+	//row.bgcolor="#FF4000";
+	b=1;
+	while(b<stolpci+1){
+		var cell = document.createElement('td');
+		cell.height=50;
+		cell.width=50;
+		//cell.id="a"+(a)+""+(b);
+
+		
+		cell.style.backgroundColor = "FF4000";
+		cell.appendChild(document.createTextNode(""));
+		row.appendChild(cell);
+		
+		
+		b+=1;
+	}
+	table.appendChild(row);
+	a+=1;
+	
+  }
+  document.body.appendChild(table);
+}
+
+
+
+
+
+
+
+
+//var myVar = setInterval(myTimer,1000);
+
+$(document).ready(function(){
+	//$("#gumb1").hide();
+	$('#tabela').hide();
+	$('#navodila').hide();
+	$('#sestej').hide();
+	$('#vsota').hide();
+	
+})
+
+
+
+$('#gumb1').click(function(){		
+	//createTable("tabela");
+	//unici("tabela");
+	$("#tabela").show();
+	//$('#sestej').show();
+	//$('#vsota').show();
+	//cas=1;
+})
+
+$('#sestej').click(function(){
+	var uu=document.getElementById("vsota");	
+	var vv=uu.elements["name"].value;
+	//$('#preveri').text(vv-(prvi_sestevanec+drugi_sestevanec));
+	
+	
+	
+	if(preveri!=[-1,-1]){
+		tocke+=100;
+		$('#tock').text('trenutno imate'+tocke+'točk');
+		$("#ta"+(trenutna_vrstica-1)).text("");
+		$("#tb"+(trenutna_vrstica-1)).text("");			
+		
+		
+		trenutna_vrstica=1;
+		
+		prvi_sestevanec=Math.floor(Math.random()*100+1);
+		drugi_sestevanec=Math.floor(Math.random()*100+1);
+		
+	}
+	var vv=uu.elements["name"].value="";
+})
+
+var navodila=false;
+$('#gumb_navodila').click(function(){
+	if(navodila==false){
+		$('#gumb_navodila').text('skrij navodila');
+		$('#navodila').show();
+		navodila=true;
+	}
+	else{
+		$('#gumb_navodila').text('navodila');
+		$('#navodila').hide();
+		navodila=false;		
+	}
+
+})
+
+
+
+//var cas=0;
+//function myTimer(){
+//	if(cas>0){
+//		cas+=1;
+//		var c=1;
+		//$("#ta"+trenutna_vrstica).text(prvi_sestevanec);
+		//$("#tb"+trenutna_vrstica).text(drugi_sestevanec);
+//		if(cas>1){
+		//$("#ta"+(trenutna_vrstica-1)).text("");
+		//$("#tb"+(trenutna_vrstica-1)).text("");		
+		}
+		
+//		trenutna_vrstica+=1;
+//		if(trenutna_vrstica==11){
+			//$("#ta"+10).text("");
+			//$("#tb"+10).text("");		
+//			trenutna_vrstica=1;
+//			lajfi-=1;
+			//prvi_sestevanec=Math.floor(Math.random()*100+1);
+			//drugi_sestevanec=Math.floor(Math.random()*100+1);
+//			$('#lajfi').text(lajfi);
+//			
+//			if(lajfi==0){
+//				cas=0;			
+//			}
+			
+//		}
+//	}
+// }
+//var myVar = setInterval(myTimer,2000);	
+
+
+</script>
+
+
+
+
+</body>
+
+
+</html>

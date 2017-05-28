@@ -1,0 +1,251 @@
+
+<html>
+<head>
+<title>spomin</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type='text/css' href='hitrost_opazovanja_stil.css'>
+</head>
+
+<body background="brain2.jpg">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<font align='right' size="40px">SPOMIN</font> 
+<br>
+
+
+<a href='glavna_stran.html'>nazaj na glavno stran<a>
+
+
+<button id="gumb1">začni</button>
+<button id="gumb_navodila">navodila</button>
+
+<div id="navodila"> prikažejo se ti kvadratki nekateri od njih so rdeči, po 5s rdeči kvadratki izgineji
+<br>
+klikni tja kjer so bili, da dobiš točke
+</div>
+<br>
+<table border="1">
+<tr>
+<td>
+<font class='tema4'> življenja</font>
+</td>
+<td>
+<font id="lajfi" class='tema4'> 2</font>
+</td>
+<td><font class='tema4'> </font> </td><td> <font id="datum" class='tema4'> </font></td>
+</tr>
+<tr>
+<td>
+
+<font  class='tema4'> stopnja </font>
+</td>
+<td>
+<font id="stopnja" class='tema4'> 3 </font>
+</td>
+<td><font class='tema4'> čas: </font></td>
+<td><font id="ura" class='tema4'> 0 </font></td>
+
+<td><font class='tema4'> točke: </font></td>
+<td><font id="tock" class='tema4'> 0 </font></td>
+</tr>
+
+</table>
+
+<br>
+
+<table id="tabela">
+<tr>
+<td bgcolor="#FF4000"> 1</td> <td> 2</td>
+</tr>
+</table>
+
+
+
+<script src='skupne_funkc.js'></script>
+
+
+<div ng-app="">
+ 
+<p>Input something in the input box:</p>
+<p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+<h1 id='rezultat'>Hello {{name}}</h1>
+
+</div>
+<script>
+
+function notr(value, array) {
+  return array.indexOf(value) > -1;
+}
+
+
+function zaporedje(n){
+	var g=1;
+	var seznam=new Array();
+	while(g<n+1){
+		var f=Math.floor(Math.random()*n+1);
+		if(notr(f,seznam)==false){
+			//document.write(f);
+			seznam.push(f);
+			g+=1;
+		}
+		}					
+	return seznam;	
+}
+
+
+var vrstice=5;
+var stolpci=5;
+var st=3;
+var tocke=0;
+var pravilno=0;
+var lajfi=2;
+var nakljucni=new Array();
+function unici(ime){
+	var element = document.getElementById(ime);
+	element.parentNode.removeChild(element);
+}
+function createTable(ime){
+  unici(ime);
+  var table = document.createElement('table');
+  table.id=ime;
+  
+  nakljucni=new Array();
+  
+  table.border=2;
+  //var tableBody = document.createElement('tbody');
+  //tableBody.align='center';
+  //tableBody.charoff="30px";
+  var zap=zaporedje(vrstice*stolpci);
+  var t=1;
+  var a=1;
+  var b=1;
+  while(a<vrstice){
+	var row = document.createElement('tr');
+	//row.bgcolor="#FF4000";
+	b=1;
+	while(b<stolpci){
+		var cell = document.createElement('td');
+		cell.height=50;
+		cell.id="t"+t;
+		cell.width=50;
+		cell.appendChild(document.createTextNode(""));
+		row.appendChild(cell);
+		
+		var r=0;
+		var res=false;
+		while(r<st+1){
+			if(zap[r]==t){
+				nakljucni.push("t"+t);
+				cell.style.backgroundColor = "FF4000";
+				res=true;
+			}
+			r+=1;
+		}
+		if(res==false){
+			cell.style.backgroundColor = "#D8D8D8";
+		}
+		
+		b+=1;
+		t+=1;
+	}
+	table.appendChild(row);
+	a+=1;
+  }
+	
+
+
+  //table.appendChild(tableBody);
+  document.body.appendChild(table);
+}
+
+var cas=0;
+function myTimer(){
+	if(cas>0){
+		cas+=1;
+		
+		if(cas==6){
+			cas=0;
+			var u=1;
+			while(u<stolpci*vrstice){
+				$("#t"+u).css('background-color','#D8D8D8');
+				
+				u+=1;
+			}
+			
+			
+		}
+		$("#ura").text(cas);		
+	}
+}
+var myVar = setInterval(myTimer,1000);	
+var liho=1;
+
+
+
+
+
+$('#gumb1').click(function(){
+	$('#rezultat').hide()
+
+	lajfi=5;
+	pravilno=0;
+	vrstice=5;
+	stolpci=5;
+	st=3;
+	$("#nak").text(nakljucni);
+	createTable("tabela");
+	cas=1;
+	
+
+
+})
+
+
+$(document).on("click", "#tabela td", function() {
+	if(cas==0){
+		//$("#lajfi").text($(this).attr('id'));
+		if(notr($(this).attr('id'),nakljucni)==true){
+			$(this).css('background-color','#1C1C1C');
+			tocke+=1;
+			pravilno+=1;
+			if(pravilno==nakljucni.length){
+				st+=1;
+				if(liho==1){
+					stolpci+=1;
+					vrstice+=1;
+				}
+				liho*=-1;
+				pravilno=0;
+				createTable("tabela");
+
+				cas=1;
+			}
+		}
+		else{
+			lajfi-=1;
+			$("#lajfi").text(lajfi);
+			if(lajfi>0){
+				
+				pravilno=0;
+				createTable("tabela");
+				cas=1;
+				
+			}
+			else{
+				$('#rezultat').show()
+				$('#tock').text(tocke)			
+			
+			}
+
+	}
+	
+	}
+})	
+	
+</script>
+
+</body>
+
+
+</html>

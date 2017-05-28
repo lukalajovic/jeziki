@@ -1,0 +1,78 @@
+body.prvoozadje{
+	background-image: url('ozadje1.jpg');
+	background-position: center;
+	
+}
+body.prvoozadje{
+	background-image: url('praga.jpg');
+}
+font.vprasanje{
+	color:#2E2E2E;
+	font-size:20pt;
+	text-align: left;
+ }
+ font.vprasanje2{
+	color:#0B0B3B;
+	font-size:20pt;
+	text-align: left;
+	text-decoration: underline;
+ }
+ p.naslov{
+	 text-decoration:underline;
+	 color: purple;
+ }
+font.v{
+	 font-size:25pt;
+	 color: red;
+	 text-align: center;
+ }
+font.v2{
+	 font-size:20pt;
+	 color: red;
+	 text-align: right;
+ }
+font.v3{
+	font-size:15pt;
+	color: red;
+	text-align: right;
+ }
+font.v4{
+	font-size:20pt;
+	color: black;
+	text-align: left;
+	text-decoration: underline;
+	font-family: Comic Sans MS;
+ } 
+body.praga2{
+	background-image: url('praga2.jpg');
+}	
+body.joe{
+	background-image: url('goodfellas.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+}	
+body.nema{
+	background-image: url('nemska_zastava.jpg');
+}
+body.siva{
+	background-color:#D8D8D8;
+}
+body.svetlo_zelena{
+	background-color:#04B45F;
+}
+body.berlin{
+	background-color: #D8D8D8;
+	background-image: url('berlin.jpg');
+	background-repeat: repeat-x;
+	background-position:center;
+
+}
+
+p.podcrta{
+	text-decoration: underline;
+}
+
+p.vecje{
+	text-decoration: underline;
+	color: red;
+}
